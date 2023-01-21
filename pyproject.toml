@@ -6,12 +6,9 @@ build-backend = "hatchling.build"
 name = "noiftimer"
 authors = [{name="Matt Manes"}]
 description = "Timing class for measuring elapsed time and average elapsed time."
-version = "1.0.0"
+version = "1.0.1"
 requires-python = ">=3.10"
-dependencies = [
-
-	"pytest~=7.2.1"
-]
+dependencies = []
 readme = "README.md"
 keywords = [
     "timer",
@@ -37,5 +34,7 @@ pythonpath = "src"
 [tool.hatch.build.targets.sdist]
 exclude = [
     ".coverage",
-    ".pytest_cache"
+    ".pytest_cache",
+    ".vscode",
+    "tests"
 ]
