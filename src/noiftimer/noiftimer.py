@@ -38,13 +38,19 @@ class Timer:
             self.history.pop(0)
         self.history.append(self.elapsed_time)
 
-    def current_elapsed_time(self, format: bool = True) -> float | str:
+    def current_elapsed_time(
+        self, format: bool = True, subsecond_resolution: bool = False
+    ) -> float | str:
         """Returns current elapsed without stopping the timer.
 
         :param format: If True, elapsed time is returned as a string.
         If False, elapsed time is returned as a float."""
         self.elapsed_time = (datetime.now() - self.start_time).total_seconds()
-        return self.format_time(self.elapsed_time) if format else self.elapsed_time
+        return (
+            self.format_time(self.elapsed_time, subsecond_resolution)
+            if format
+            else self.elapsed_time
+        )
 
     def _get_time_unit(
         self, num_seconds: float, seconds_per_unit: float, unit_suffix: str
