@@ -10,9 +10,10 @@ def time_it(loops: int = 1) -> Callable[..., Any]:
     :param loops: How many times to loop the function,
     starting and stopping the timer before and after
     each loop."""
-    """ def decorator(func: Callable[...,Any])->Callable[...,Any]:
-        def wrapper(*args, **kwargs)->Any:
-            timer = Timer() """
+
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+        def wrapper(*args, **kwargs) -> Any:
+            timer = Timer()
 
 
 class Timer:
@@ -39,7 +40,10 @@ class Timer:
     @property
     def elapsed(self) -> float:
         """Return the currently elapsed time."""
-        return (datetime.now() - self.start_time).total_seconds()
+        if self.started:
+            return (datetime.now() - self.start_time).total_seconds()
+        else:
+            return (self.stop_time - self.start_time).total_seconds()
 
     @property
     def elapsed_str(self) -> str:
