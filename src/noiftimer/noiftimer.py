@@ -13,12 +13,13 @@ def time_it(loops: int = 1) -> Callable[..., Any]:
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         def wrapper(*args, **kwargs) -> Any:
-            timer = Timer()
+            timer = Timer(loops)
             for _ in range(loops):
                 timer.start()
                 result = func(*args, **kwargs)
                 timer.stop()
-            print(timer.get_stats(True, True))
+            execution_time = timer.format_time(timer.average_elapsed_time, True)
+            print(f"{func.__name__} average execution time: {execution_time}")
             return result
 
         return wrapper
