@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Callable, Any
+from typing import Callable, Any, Self
 import warnings
 
 
@@ -62,10 +62,16 @@ class Timer:
         as a formatted string."""
         return self.format_time(self.elapsed, self.subsecond_resolution)
 
-    def start(self):
-        """Start timer."""
+    def start(self) -> Self:
+        """Start timer.
+        Returns this Timer instance so
+        timer start can be chained to
+        Timer creation.
+
+        >>> timer = Timer().start()"""
         self.start_time = datetime.now()
         self.started = True
+        return self
 
     def stop(self):
         """Stop timer.
