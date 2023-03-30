@@ -114,7 +114,7 @@ def test_noiftimer_get_stats():
 def test__noiftimer__time_it():
     @noiftimer.time_it(10)
     def zzz():
-        time.sleep(1)
+        time.sleep(0.1)
         return True
 
     assert zzz()
