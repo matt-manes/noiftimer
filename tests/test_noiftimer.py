@@ -109,3 +109,12 @@ def test_noiftimer_get_stats():
     timer.stop()
     assert type(timer.get_stats()) == str
     assert type(timer.get_stats(False)) == str
+
+
+def test__noiftimer__time_it():
+    @noiftimer.time_it(10)
+    def zzz():
+        time.sleep(1)
+        return True
+
+    assert zzz()
