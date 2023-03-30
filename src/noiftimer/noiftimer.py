@@ -1,6 +1,6 @@
-from datetime import datetime
-from typing import Callable, Any, Self
 import warnings
+from datetime import datetime
+from typing import Any, Callable, Self
 
 
 def time_it(loops: int = 1) -> Callable[..., Any]:
