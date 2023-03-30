@@ -35,6 +35,17 @@ class Timer:
         self.started: bool = False
         self.subsecond_resolution = subsecond_resolution
 
+    @property
+    def elapsed(self) -> float:
+        """Return the currently elapsed time."""
+        return (datetime.now() - self.start_time).total_seconds()
+
+    @property
+    def elapsed_str(self) -> str:
+        """Return the currently elapsed time
+        as a formatted string."""
+        return self.format_time(self.elapsed, self.subsecond_resolution)
+
     def start(self):
         """Start timer."""
         self.start_time = datetime.now()
