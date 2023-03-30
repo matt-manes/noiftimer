@@ -1,13 +1,31 @@
 from datetime import datetime
+from typing import Callable, Any
+
+
+def time_it(loops: int = 1) -> Callable[..., Any]:
+    """Decorator to time function execution time
+    and print the results.
+
+    :param loops: How many times to loop the function,
+    starting and stopping the timer before and after
+    each loop."""
+    """ def decorator(func: Callable[...,Any])->Callable[...,Any]:
+        def wrapper(*args, **kwargs)->Any:
+            timer = Timer() """
 
 
 class Timer:
     """Simple timer class that tracks total elapsed time
     and average time between calls to 'start' and 'stop'."""
 
-    def __init__(self, averaging_window_length: int = 10):
+    def __init__(
+        self, averaging_window_length: int = 10, subsecond_resolution: bool = True
+    ):
         """:param averaging_window_length: Number of start/stop cycles
-        to calculate the average elapsed time with."""
+        to calculate the average elapsed time with.
+
+        :param subsecond_resolution: Whether to print formatted time
+        strings with subsecond resolution or not."""
         self.start_time: datetime = datetime.now()
         self.stop_time: datetime = datetime.now()
         self.average_elapsed_time: float = 0
@@ -15,6 +33,7 @@ class Timer:
         self.elapsed_time: float = 0
         self.averaging_window_length: int = averaging_window_length
         self.started: bool = False
+        self.subsecond_resolution = subsecond_resolution
 
     def start(self):
         """Start timer."""
