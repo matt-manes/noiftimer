@@ -1,1 +1,1 @@
-from .noiftimer import Timer
+from .noiftimer import Timer, time_it
