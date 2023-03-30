@@ -45,6 +45,23 @@ def test_noiftimer_current_elapsed_time():
     assert type(timer.current_elapsed_time()) == str
 
 
+def test__noiftimer__elapsed():
+    timer = noiftimer.Timer()
+    timer.start()
+    time.sleep(1)
+    elapsed = timer.elapsed
+    time.sleep(1)
+    assert 0 < elapsed and elapsed < timer.elapsed
+
+
+def test__noiftimer__elapsed_str():
+    timer = noiftimer.Timer()
+    timer.start()
+    time.sleep(1)
+    assert type(timer.elapsed_str) == str
+    assert timer.elapsed_str != ""
+
+
 @pytest.mark.parametrize(
     "num_seconds,seconds_per_unit,unit_suffix,expected",
     [
