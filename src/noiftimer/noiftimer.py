@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import Callable, Any
+import warnings
 
 
 def time_it(loops: int = 1) -> Callable[..., Any]:
@@ -75,6 +76,11 @@ class Timer:
 
         :param format: If True, elapsed time is returned as a string.
         If False, elapsed time is returned as a float."""
+        warnings.warn(
+            "current_elapsed_time is depreciated. Use 'elapsed' and 'elapsed_str' properties instead.",
+            FutureWarning,
+            2,
+        )
         self.elapsed_time = (datetime.now() - self.start_time).total_seconds()
         return (
             self.format_time(self.elapsed_time, subsecond_resolution)
