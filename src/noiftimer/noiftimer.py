@@ -14,6 +14,16 @@ def time_it(loops: int = 1) -> Callable[..., Any]:
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         def wrapper(*args, **kwargs) -> Any:
             timer = Timer()
+            for _ in range(loops):
+                timer.start()
+                result = func(*args, **kwargs)
+                timer.stop()
+            print(timer.get_stats(True, True))
+            return result
+
+        return wrapper
+
+    return decorator
 
 
 class Timer:
