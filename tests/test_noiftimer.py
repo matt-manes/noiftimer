@@ -52,6 +52,9 @@ def test__noiftimer__elapsed():
     elapsed = timer.elapsed
     time.sleep(1)
     assert 0 < elapsed and elapsed < timer.elapsed
+    time.sleep(1)
+    timer.stop()
+    assert timer.elapsed
 
 
 def test__noiftimer__elapsed_str():
