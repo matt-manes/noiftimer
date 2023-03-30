@@ -6,8 +6,7 @@ import noiftimer
 
 
 def test_noiftimer_start():
-    timer = noiftimer.Timer()
-    timer.start()
+    timer = noiftimer.Timer().start()
     assert timer.start_time
     assert timer.started is True
 
