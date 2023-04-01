@@ -142,6 +142,8 @@ class Timer:
             unit_amount, num_seconds = divmod(num_seconds, time_unit[0])
             if unit_amount > 0:
                 time_string += f"{int(unit_amount)}{time_unit[1]} "
+        if time_string == "":
+            return f"<1{time_units[-1][1]}"
         return time_string.strip()
 
     def get_stats(self, format: bool = True, subsecond_resolution: bool = False) -> str:
