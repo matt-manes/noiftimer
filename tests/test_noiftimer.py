@@ -65,20 +65,6 @@ def test__noiftimer__elapsed_str():
 
 
 @pytest.mark.parametrize(
-    "num_seconds,seconds_per_unit,unit_suffix,expected",
-    [
-        (124, 60, "m", (4, "2m")),
-        (16200, 3600, "h", (1800, "4h")),
-        (16202, 60, "m", (2, "270m")),
-        (14837284, 604800, "w", (322084, "24w")),
-    ],
-)
-def test_noiftimer__get_time_unit(num_seconds, seconds_per_unit, unit_suffix, expected):
-    timer = noiftimer.Timer()
-    assert timer._get_time_unit(num_seconds, seconds_per_unit, unit_suffix) == expected
-
-
-@pytest.mark.parametrize(
     "num_seconds,subsecond_resolution,expected",
     [
         (3600, False, "1h"),
@@ -97,8 +83,7 @@ def test_noiftimer__get_time_unit(num_seconds, seconds_per_unit, unit_suffix, ex
     ],
 )
 def test_noiftimer_format_time(num_seconds, subsecond_resolution, expected):
-    timer = noiftimer.Timer()
-    assert timer.format_time(num_seconds, subsecond_resolution) == expected
+    assert noiftimer.Timer.format_time(num_seconds, subsecond_resolution) == expected
 
 
 def test_noiftimer_get_stats():
