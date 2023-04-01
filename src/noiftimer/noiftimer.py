@@ -109,9 +109,8 @@ class Timer:
             else self.elapsed_time
         )
 
-    def format_time(
-        self, num_seconds: float, subsecond_resolution: bool = False
-    ) -> str:
+    @staticmethod
+    def format_time(num_seconds: float, subsecond_resolution: bool = False) -> str:
         """Returns num_seconds as a string with units.
 
         :param subsecond_resolution: Include milliseconds
