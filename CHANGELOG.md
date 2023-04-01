@@ -1,6 +1,17 @@
 # Changelog
 
-## 1.2.0 (2023-03-30)
+## 1.3.0 (2023-03-31)
+
+#### Fixes
+
+* return <1{unit} from format_time when an empty string is returned
+#### Refactorings
+
+* convert format_time() to a staticmethod
+* remove _get_time_unit and use divmod instead
+
+
+## v1.2.0 (2023-03-30)
 
 #### New Features
 
@@ -16,6 +27,8 @@
 * calculate 'elapsed' property from 'stop_time' if timer stopped instead of current time
 #### Others
 
+* build v1.2.0
+* update changelog
 * add time_it to import in __init__.py
 * add warning to current_elapsed_time()
 * add tests for 'elapsed' and 'elapsed_str' properties
