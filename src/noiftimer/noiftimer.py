@@ -109,23 +109,6 @@ class Timer:
             else self.elapsed_time
         )
 
-    def _get_time_unit(
-        self, num_seconds: float, seconds_per_unit: float, unit_suffix: str
-    ) -> tuple[float, str]:
-        """Determines the number of units in a given number of seconds
-        by integer division.
-
-        Returns a tuple containing the remaining number of seconds after division
-        as well as the number of units as a string with 'unit_suffix' appended to the string.
-
-        e.g. _get_time_unit(124, 60, 'm') will return (4, '2m')"""
-        num_units = int(num_seconds / seconds_per_unit)
-        if num_units > 0:
-            remainder = num_seconds - (num_units * seconds_per_unit)
-            return (remainder, f"{num_units}{unit_suffix}")
-        else:
-            return (num_seconds, "")
-
     def format_time(
         self, num_seconds: float, subsecond_resolution: bool = False
     ) -> str:
@@ -157,11 +140,9 @@ class Timer:
             time_units = time_units[:-2]
         time_string = ""
         for time_unit in time_units:
-            num_seconds, unit_string = self._get_time_unit(
-                num_seconds, time_unit[0], time_unit[1]
-            )
-            if unit_string != "":
-                time_string += f"{unit_string} "
+            unit_amount, num_seconds = divmod(num_seconds, time_unit[0])
+            if unit_amount > 0:
+                time_string += f"{int(unit_amount)}{time_unit[1]} "
         return time_string.strip()
 
     def get_stats(self, format: bool = True, subsecond_resolution: bool = False) -> str:
