@@ -35,13 +35,11 @@ def test_noiftimer__save_elapsed_time():
 
 
 def test_noiftimer_current_elapsed_time():
-    timer = noiftimer.Timer()
-    timer.start()
+    timer = noiftimer.Timer().start()
     time.sleep(1)
-    elapsed_time = timer.current_elapsed_time(format=False)
+    elapsed_time = timer.elapsed
     time.sleep(1)
-    assert 0 < elapsed_time and elapsed_time < timer.current_elapsed_time(format=False)
-    assert type(timer.current_elapsed_time()) == str
+    assert 0 < elapsed_time and elapsed_time < timer.elapsed
 
 
 def test__noiftimer__elapsed():
