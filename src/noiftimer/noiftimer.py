@@ -2,12 +2,7 @@ import warnings
 from datetime import datetime
 from typing import Any, Callable
 
-try:
-    from typing import Self
-except Exception as e:
-    from typing import TypeVar
-
-    Self = TypeVar("Self", bound="Timer")
+from typing_extensions import Self
 
 
 def time_it(loops: int = 1) -> Callable[..., Any]:
