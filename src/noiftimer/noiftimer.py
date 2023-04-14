@@ -92,25 +92,6 @@ class Timer:
             self.history.pop(0)
         self.history.append(self.elapsed_time)
 
-    def current_elapsed_time(
-        self, format: bool = True, subsecond_resolution: bool = False
-    ) -> float | str:
-        """Returns current elapsed without stopping the timer.
-
-        :param format: If True, elapsed time is returned as a string.
-        If False, elapsed time is returned as a float."""
-        warnings.warn(
-            "current_elapsed_time is depreciated. Use 'elapsed' and 'elapsed_str' properties instead.",
-            FutureWarning,
-            2,
-        )
-        self.elapsed_time = (datetime.now() - self.start_time).total_seconds()
-        return (
-            self.format_time(self.elapsed_time, subsecond_resolution)
-            if format
-            else self.elapsed_time
-        )
-
     @staticmethod
     def format_time(num_seconds: float, subsecond_resolution: bool = False) -> str:
         """Returns num_seconds as a string with units.
