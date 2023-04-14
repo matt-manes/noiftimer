@@ -1,6 +1,13 @@
 import warnings
 from datetime import datetime
-from typing import Any, Callable, Self
+from typing import Any, Callable
+
+try:
+    from typing import Self
+except Exception as e:
+    from typing import TypeVar
+
+    Self = TypeVar("Self", bound="Timer")
 
 
 def time_it(loops: int = 1) -> Callable[..., Any]:
@@ -62,7 +69,7 @@ class Timer:
         as a formatted string."""
         return self.format_time(self.elapsed, self.subsecond_resolution)
 
-    def start(self) -> Self:
+    def start(self: Self) -> Self:
         """Start timer.
         Returns this Timer instance so
         timer start can be chained to
