@@ -1,4 +1,4 @@
-from datetime import datetime
+import time
 from typing import Any, Callable
 
 from typing_extensions import Self
@@ -40,8 +40,8 @@ class Timer:
 
         :param subsecond_resolution: Whether to print formatted time
         strings with subsecond resolution or not."""
-        self.start_time: datetime = datetime.now()
-        self.stop_time: datetime = datetime.now()
+        self.start_time = time.time()
+        self.stop_time = time.time()
         self.average_elapsed_time: float = 0
         self.history: list[float] = []
         self.elapsed_time: float = 0
@@ -53,9 +53,9 @@ class Timer:
     def elapsed(self) -> float:
         """Return the currently elapsed time."""
         if self.started:
-            return (datetime.now() - self.start_time).total_seconds()
+            return time.time() - self.start_time
         else:
-            return (self.stop_time - self.start_time).total_seconds()
+            return self.stop_time - self.start_time
 
     @property
     def elapsed_str(self) -> str:
@@ -70,7 +70,7 @@ class Timer:
         Timer creation.
 
         >>> timer = Timer().start()"""
-        self.start_time = datetime.now()
+        self.start_time = time.time()
         self.started = True
         return self
 
@@ -78,9 +78,9 @@ class Timer:
         """Stop timer.
 
         Calculates elapsed time and average elapsed time."""
-        self.stop_time = datetime.now()
+        self.stop_time = time.time()
         self.started = False
-        self.elapsed_time = (self.stop_time - self.start_time).total_seconds()
+        self.elapsed_time = self.stop_time - self.start_time
         self._save_elapsed_time()
         self.average_elapsed_time = sum(self.history) / (len(self.history))
 
