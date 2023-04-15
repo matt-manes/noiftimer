@@ -19,8 +19,9 @@ def time_it(loops: int = 1) -> Callable[..., Any]:
                 timer.start()
                 result = func(*args, **kwargs)
                 timer.stop()
-            execution_time = timer.format_time(timer.average_elapsed_time, True)
-            print(f"{func.__name__} average execution time: {execution_time}")
+            print(
+                f"{func.__name__} average execution time: {timer.average_elapsed_str}"
+            )
             return result
 
         return wrapper
