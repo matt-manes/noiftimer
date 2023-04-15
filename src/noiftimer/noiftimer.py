@@ -40,28 +40,50 @@ class Timer:
 
         :param subsecond_resolution: Whether to print formatted time
         strings with subsecond resolution or not."""
-        self.start_time = time.time()
-        self.stop_time = time.time()
-        self.average_elapsed_time: float = 0
-        self.history: list[float] = []
-        self.elapsed_time: float = 0
+        self._start_time = time.time()
+        self._stop_time = self.start_time
+        self._elapsed = 0
+        self._average_elapsed = 0
+        self._history: list[float] = []
+        self._started: bool = False
         self.averaging_window_length: int = averaging_window_length
-        self.started: bool = False
         self.subsecond_resolution = subsecond_resolution
+
+    @property
+    def started(self) -> bool:
+        """Returns whether the timer has
+        been started and is currently running."""
+        return self._started
 
     @property
     def elapsed(self) -> float:
         """Return the currently elapsed time."""
-        if self.started:
-            return time.time() - self.start_time
+        if self._started:
+            return time.time() - self._start_time
         else:
-            return self.stop_time - self.start_time
+            return self._elapsed
 
     @property
     def elapsed_str(self) -> str:
         """Return the currently elapsed time
         as a formatted string."""
         return self.format_time(self.elapsed, self.subsecond_resolution)
+
+    @property
+    def average_elapsed(self) -> float:
+        return self._average_elapsed
+
+    @property
+    def average_elapsed_str(self) -> str:
+        return self.format_time(self._average_elapsed, self.subsecond_resolution)
+
+    @property
+    def start_time(self) -> float:
+        return self._start_time
+
+    @property
+    def stop_time(self) -> float:
+        return self._stop_time
 
     def start(self: Self) -> Self:
         """Start timer.
@@ -70,26 +92,26 @@ class Timer:
         Timer creation.
 
         >>> timer = Timer().start()"""
-        self.start_time = time.time()
-        self.started = True
+        self._start_time = time.time()
+        self._started = True
         return self
 
     def stop(self):
         """Stop timer.
 
         Calculates elapsed time and average elapsed time."""
-        self.stop_time = time.time()
-        self.started = False
-        self.elapsed_time = self.stop_time - self.start_time
+        self._stop_time = time.time()
+        self._started = False
+        self._elapsed = self._stop_time - self._start_time
         self._save_elapsed_time()
-        self.average_elapsed_time = sum(self.history) / (len(self.history))
+        self._average_elapsed = sum(self._history) / (len(self._history))
 
     def _save_elapsed_time(self):
         """Saves current elapsed time to the history buffer
         in a FIFO manner."""
-        if len(self.history) >= self.averaging_window_length:
-            self.history.pop(0)
-        self.history.append(self.elapsed_time)
+        if len(self._history) >= self.averaging_window_length:
+            self._history.pop(0)
+        self._history.append(self._elapsed)
 
     @staticmethod
     def format_time(num_seconds: float, subsecond_resolution: bool = False) -> str:
@@ -128,15 +150,8 @@ class Timer:
             return f"<1{time_units[-1][1]}"
         return time_string.strip()
 
-    def get_stats(self, format: bool = True, subsecond_resolution: bool = False) -> str:
-        """Returns string for elapsed time and average elapsed time.
-
-        :param format: Times are returned as strings if True,
-        otherwise they're raw floats.
-
-        :param subsecond_resolution: Include milliseconds
-        and microseconds with the output."""
-        if format:
-            return f"elapsed time: {self.format_time(self.elapsed_time, subsecond_resolution)}\naverage elapsed time: {self.format_time(self.average_elapsed_time, subsecond_resolution)}"
-        else:
-            return f"elapsed time: {self.elapsed_time}s\naverage elapsed time: {self.average_elapsed_time}s"
+    @property
+    def stats(self) -> str:
+        """Returns a string stating the currently elapsed time
+        and the average elapsed time."""
+        return f"elapsed time: {self.elapsed_str}\naverage elapsed time: {self.average_elapsed_str}"
