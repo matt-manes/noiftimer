@@ -86,6 +86,10 @@ class Timer:
     def stop_time(self) -> float:
         return self._stop_time
 
+    @property
+    def history(self) -> list[float]:
+        return self._history
+
     def start(self: Self) -> Self:
         """Start timer.
         Returns this Timer instance so
