@@ -18,8 +18,8 @@ def test_noiftimer_stop():
     timer.stop()
     assert timer.stop_time
     assert not timer.started
-    assert timer.elapsed_time > 1
-    assert timer.elapsed_time == timer.average_elapsed_time
+    assert timer.elapsed > 1
+    assert timer.elapsed == timer.average_elapsed
 
 
 def test_noiftimer__save_elapsed_time():
