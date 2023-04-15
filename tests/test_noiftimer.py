@@ -89,8 +89,7 @@ def test_noiftimer_get_stats():
     timer.start()
     time.sleep(1)
     timer.stop()
-    assert type(timer.get_stats()) == str
-    assert type(timer.get_stats(False)) == str
+    assert timer.stats
 
 
 def test__noiftimer__time_it():
