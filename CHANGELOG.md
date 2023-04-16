@@ -1,6 +1,28 @@
 # Changelog
 
-## 1.3.0 (2023-03-31)
+## 2.0.0 (2023-04-15)
+
+#### New Features
+
+* add history property
+* make Self typing python 3.10 compatible
+#### Fixes
+
+* initialize result in time_it
+* update time_it to call average time correctly
+#### Refactorings
+
+* convert most members to properties
+* revert datetime library usage back to time library
+* import Self from typing_extensions
+#### Others
+
+* update readme
+* remove unused import
+* remove current_elapsed_time() making package compatible with python >=3.6
+
+
+## v1.3.0 (2023-03-31)
 
 #### Fixes
 
@@ -9,6 +31,10 @@
 
 * convert format_time() to a staticmethod
 * remove _get_time_unit and use divmod instead
+#### Others
+
+* build v1.3.0
+* update changelog
 
 
 ## v1.2.0 (2023-03-30)
