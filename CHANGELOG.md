@@ -1,6 +1,22 @@
 # Changelog
 
-## 2.0.0 (2023-04-15)
+## 2.1.0 (2023-05-10)
+
+#### New Features
+
+* Add `pause` and `unpause` methods to `Timer`.
+#### Performance improvements
+
+* start() and stop() check whether the timer is running or not before performing their actions
+#### Docs
+
+* update and reformat docstrings
+#### Others
+
+* change minimum python version to 3.10
+
+
+## v2.0.0 (2023-04-15)
 
 #### New Features
 
@@ -17,6 +33,8 @@
 * import Self from typing_extensions
 #### Others
 
+* build v2.0.0
+* update changelog
 * update readme
 * remove unused import
 * remove current_elapsed_time() making package compatible with python >=3.6
