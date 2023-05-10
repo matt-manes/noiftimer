@@ -102,19 +102,21 @@ class Timer:
         Returns this Timer instance so timer start can be chained to Timer creation if desired.
 
         >>> timer = Timer().start()"""
-        self._start_time = time.time()
-        self._started = True
+        if not self.started:
+            self._start_time = time.time()
+            self._started = True
         return self
 
     def stop(self):
         """Stop the timer.
 
         Calculates elapsed time and average elapsed time."""
-        self._stop_time = time.time()
-        self._started = False
-        self._elapsed = self._stop_time - self._start_time
-        self._save_elapsed_time()
-        self._average_elapsed = sum(self._history) / (len(self._history))
+        if self.started:
+            self._stop_time = time.time()
+            self._started = False
+            self._elapsed = self._stop_time - self._start_time
+            self._save_elapsed_time()
+            self._average_elapsed = sum(self._history) / (len(self._history))
 
     def _save_elapsed_time(self):
         """Saves current elapsed time to the history buffer in a FIFO manner."""
