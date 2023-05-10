@@ -30,6 +30,26 @@ def time_it(loops: int = 1) -> Callable[..., Any]:
     return decorator
 
 
+class _Pauser:
+    def __init__(self):
+        self._pause_start = 0
+        self._pause_total = 0
+
+    def pause(self):
+        self._pause_start = time.time()
+
+    def unpause(self):
+        self._pause_total += time.time() - self._pause_start
+
+    def reset(self):
+        self._pause_start = 0
+        self._pause_total = 0
+
+    @property
+    def pause_total(self) -> float:
+        return self._pause_total
+
+
 class Timer:
     """Simple timer class that tracks total elapsed time
     and average time between calls to `start()` and `stop()`."""
