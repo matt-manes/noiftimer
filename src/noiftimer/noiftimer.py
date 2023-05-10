@@ -34,20 +34,27 @@ class _Pauser:
     def __init__(self):
         self._pause_start = 0
         self._pause_total = 0
+        self._paused = False
 
     def pause(self):
         self._pause_start = time.time()
+        self._paused = True
 
     def unpause(self):
         self._pause_total += time.time() - self._pause_start
+        self._paused = False
 
     def reset(self):
         self._pause_start = 0
         self._pause_total = 0
+        self._paused = False
 
     @property
     def pause_total(self) -> float:
-        return self._pause_total
+        if self._paused:
+            return self._pause_total + (time.time() - self._pause_start)
+        else:
+            return self._pause_total
 
 
 class Timer:
