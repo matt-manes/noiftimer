@@ -5,12 +5,12 @@ from typing_extensions import Self
 
 
 def time_it(loops: int = 1) -> Callable[..., Any]:
-    """Decorator to time function execution time
-    and print the results.
+    """Decorator to time function execution time and print the results.
 
-    :param loops: How many times to loop the function,
-    starting and stopping the timer before and after
-    each loop."""
+    #### :params:
+
+    `loops`: How many times to execute the decorated function,
+    starting and stopping the timer before and after each loop."""
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         def wrapper(*args, **kwargs) -> Any:
@@ -32,16 +32,16 @@ def time_it(loops: int = 1) -> Callable[..., Any]:
 
 class Timer:
     """Simple timer class that tracks total elapsed time
-    and average time between calls to 'start' and 'stop'."""
+    and average time between calls to `start()` and `stop()`."""
 
     def __init__(
         self, averaging_window_length: int = 10, subsecond_resolution: bool = True
     ):
-        """:param averaging_window_length: Number of start/stop cycles
-        to calculate the average elapsed time with.
+        """
+        #### :params:
+        * `averaging_window_length`: Number of start/stop cycles to calculate the average elapsed time with.
 
-        :param subsecond_resolution: Whether to print formatted time
-        strings with subsecond resolution or not."""
+        * `subsecond_resolution`: Whether to print formatted time strings with subsecond resolution or not."""
         self._start_time = time.time()
         self._stop_time = self.start_time
         self._elapsed = 0
@@ -53,13 +53,12 @@ class Timer:
 
     @property
     def started(self) -> bool:
-        """Returns whether the timer has
-        been started and is currently running."""
+        """Returns whether the timer has been started and is currently running."""
         return self._started
 
     @property
     def elapsed(self) -> float:
-        """Return the currently elapsed time."""
+        """Returns the currently elapsed time."""
         if self._started:
             return time.time() - self._start_time
         else:
@@ -67,35 +66,40 @@ class Timer:
 
     @property
     def elapsed_str(self) -> str:
-        """Return the currently elapsed time
-        as a formatted string."""
+        """Returns the currently elapsed time as a formatted string."""
         return self.format_time(self.elapsed, self.subsecond_resolution)
 
     @property
     def average_elapsed(self) -> float:
+        """Returns the average elapsed time."""
         return self._average_elapsed
 
     @property
     def average_elapsed_str(self) -> str:
+        """Returns the average elapsed time as a formatted string."""
         return self.format_time(self._average_elapsed, self.subsecond_resolution)
 
     @property
     def start_time(self) -> float:
+        """Returns the timestamp of the last call to `start()`."""
         return self._start_time
 
     @property
     def stop_time(self) -> float:
+        """Returns the timestamp of the last call to `stop()`."""
         return self._stop_time
 
     @property
     def history(self) -> list[float]:
+        """Returns the history buffer for this timer.
+
+        At most, it will be `averaging_window_length` elements long."""
         return self._history
 
     def start(self: Self) -> Self:
-        """Start timer.
-        Returns this Timer instance so
-        timer start can be chained to
-        Timer creation.
+        """Start the timer.
+
+        Returns this Timer instance so timer start can be chained to Timer creation if desired.
 
         >>> timer = Timer().start()"""
         self._start_time = time.time()
@@ -103,7 +107,7 @@ class Timer:
         return self
 
     def stop(self):
-        """Stop timer.
+        """Stop the timer.
 
         Calculates elapsed time and average elapsed time."""
         self._stop_time = time.time()
@@ -113,18 +117,18 @@ class Timer:
         self._average_elapsed = sum(self._history) / (len(self._history))
 
     def _save_elapsed_time(self):
-        """Saves current elapsed time to the history buffer
-        in a FIFO manner."""
+        """Saves current elapsed time to the history buffer in a FIFO manner."""
         if len(self._history) >= self.averaging_window_length:
             self._history.pop(0)
         self._history.append(self._elapsed)
 
     @staticmethod
     def format_time(num_seconds: float, subsecond_resolution: bool = False) -> str:
-        """Returns num_seconds as a string with units.
+        """Returns `num_seconds` as a string with units.
 
-        :param subsecond_resolution: Include milliseconds
-        and microseconds with the output."""
+        #### :params:
+
+        `subsecond_resolution`: Include milliseconds and microseconds with the output."""
         microsecond = 0.000001
         millisecond = 0.001
         second = 1
@@ -158,6 +162,5 @@ class Timer:
 
     @property
     def stats(self) -> str:
-        """Returns a string stating the currently elapsed time
-        and the average elapsed time."""
+        """Returns a string stating the currently elapsed time and the average elapsed time."""
         return f"elapsed time: {self.elapsed_str}\naverage elapsed time: {self.average_elapsed_str}"
