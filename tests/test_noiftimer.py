@@ -99,3 +99,28 @@ def test__noiftimer__time_it():
         return True
 
     assert zzz()
+
+
+def test__pauser():
+    timer = noiftimer.Timer().start()
+    time.sleep(1)
+    elapsed_time = timer.elapsed
+    timer.pause()
+    time.sleep(1)
+    # amount of time paused should be subtracked from elapsed
+    assert elapsed_time == timer.elapsed
+    timer.unpause()
+    assert timer._pauser.pause_total > 0
+    pause_time = timer._pauser.pause_total
+    time.sleep(1)
+    # pause tracker should be stopped
+    assert timer.elapsed > elapsed_time
+    assert pause_time == timer._pauser.pause_total
+    timer.pause()
+    time.sleep(1)
+    timer.unpause()
+    # pause_time should accumulate until `timer.stop()` is called.
+    assert timer._pauser.pause_total > pause_time
+    timer.stop()
+    assert timer._pauser.pause_total == 0
+    assert timer._pauser._pause_start == 0
