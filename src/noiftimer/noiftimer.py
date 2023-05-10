@@ -70,6 +70,7 @@ class Timer:
         self._started: bool = False
         self.averaging_window_length: int = averaging_window_length
         self.subsecond_resolution = subsecond_resolution
+        self._pauser = _Pauser()
 
     @property
     def started(self) -> bool:
@@ -80,7 +81,7 @@ class Timer:
     def elapsed(self) -> float:
         """Returns the currently elapsed time."""
         if self._started:
-            return time.time() - self._start_time
+            return time.time() - self._start_time - self._pauser.pause_total
         else:
             return self._elapsed
 
@@ -134,9 +135,20 @@ class Timer:
         if self.started:
             self._stop_time = time.time()
             self._started = False
-            self._elapsed = self._stop_time - self._start_time
+            self._elapsed = (
+                self._stop_time - self._start_time - self._pauser.pause_total
+            )
+            self._pauser.reset()
             self._save_elapsed_time()
             self._average_elapsed = sum(self._history) / (len(self._history))
+
+    def pause(self):
+        """Pause the timer."""
+        self._pauser.pause()
+
+    def unpause(self):
+        """Unpause the timer."""
+        self._pauser.unpause()
 
     def _save_elapsed_time(self):
         """Saves current elapsed time to the history buffer in a FIFO manner."""
