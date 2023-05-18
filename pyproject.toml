@@ -38,3 +38,6 @@ exclude = [
     ".vscode",
     "tests"
 ]
+
+[project.scripts]
+stopwatch = "noiftimer.stopwatch:main"
