@@ -1,18 +1,32 @@
 # Changelog
 
-## 2.1.0 (2023-05-10)
+## 2.2.0 (2023-05-19)
 
 #### New Features
 
-* Add `pause` and `unpause` methods to `Timer`.
+* add prompting and threading for clean shutdown
+#### Others
+
+* add stopwatch script entrypoint definition
+
+
+## v2.1.0 (2023-05-10)
+
+#### New Features
+
+* implement _Pauser in Timer
+* add _Pauser class
 #### Performance improvements
 
+* _Pauser tracks whether it's paused or not
 * start() and stop() check whether the timer is running or not before performing their actions
 #### Docs
 
-* update and reformat docstrings
+* update and reformate docstrings
 #### Others
 
+* build v2.1.0
+* update changelog
 * change minimum python version to 3.10
 
 
