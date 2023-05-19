@@ -1,5 +1,5 @@
-import time
 import threading
+import time
 
 from printbuddies import print_in_place
 
