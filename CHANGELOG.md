@@ -1,5 +1,15 @@
 # Changelog
 
+## v2.3.0 (2023-10-29)
+
+#### Refactorings
+
+* change 'time_it' print out based on number of loops
+#### Others
+
+* add "__version__"
+
+
 ## v2.2.0 (2023-05-19)
 
 #### New Features
