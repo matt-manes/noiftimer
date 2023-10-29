@@ -4,40 +4,29 @@ build-backend = "hatchling.build"
 
 [project]
 name = "noiftimer"
-authors = [{name="Matt Manes"}]
 description = "Timing class for measuring elapsed time and average elapsed time."
-version = "2.2.0"
+version = "2.3.0"
 requires-python = ">=3.10"
 dependencies = ["pytest", "typing_extensions", "printbuddies"]
 readme = "README.md"
-keywords = [
-    "timer",
-    "timing"
-]
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-]
+keywords = ["timer", "timing"]
+classifiers = ["Programming Language :: Python :: 3", "License :: OSI Approved :: MIT License", "Operating System :: OS Independent"]
+
+[[project.authors]]
+name = "Matt Manes"
 
 [project.urls]
-"Homepage" = "https://github.com/matt-manes/noiftimer"
-"Documentation" = "https://github.com/matt-manes/noiftimer/tree/main/docs"
+Homepage = "https://github.com/matt-manes/noiftimer"
+Documentation = "https://github.com/matt-manes/noiftimer/tree/main/docs"
 "Source code" = "https://github.com/matt-manes/noiftimer/tree/main/src/noiftimer"
-
-[tool.pytest.ini_options]
-addopts = [
-    "--import-mode=importlib",
-]
-pythonpath = "src"
-
-[tool.hatch.build.targets.sdist]
-exclude = [
-    ".coverage",
-    ".pytest_cache",
-    ".vscode",
-    "tests"
-]
 
 [project.scripts]
 stopwatch = "noiftimer.stopwatch:main"
+
+[tool]
+[tool.pytest.ini_options]
+addopts = ["--import-mode=importlib"]
+pythonpath = "src"
+
+[tool.hatch.build.targets.sdist]
+exclude = [".coverage", ".pytest_cache", ".vscode", "tests"]
