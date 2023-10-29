@@ -21,7 +21,7 @@ def time_it(loops: int = 1) -> Callable[..., Any]:
                 result = func(*args, **kwargs)
                 timer.stop()
             print(
-                f"{func.__name__} average execution time: {timer.average_elapsed_str}"
+                f"{func.__name__} {'average ' if loops > 1 else ''}execution time: {timer.average_elapsed_str}"
             )
             return result
 
