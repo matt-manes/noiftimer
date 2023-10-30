@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "noiftimer"
 description = "Timing class for measuring elapsed time and average elapsed time."
-version = "2.3.0"
+version = "2.3.1"
 requires-python = ">=3.10"
 dependencies = ["pytest", "typing_extensions", "printbuddies"]
 readme = "README.md"
