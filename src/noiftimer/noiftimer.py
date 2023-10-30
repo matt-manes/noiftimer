@@ -1,4 +1,5 @@
 import time
+from functools import wraps
 from typing import Any, Callable
 
 from typing_extensions import Self
@@ -13,6 +14,7 @@ def time_it(loops: int = 1) -> Callable[..., Any]:
     starting and stopping the timer before and after each loop."""
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+        @wraps(func)
         def wrapper(*args, **kwargs) -> Any:
             timer = Timer(loops)
             result = None
