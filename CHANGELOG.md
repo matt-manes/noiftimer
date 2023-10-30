@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.3.1 (2023-10-29)
+
+#### Fixes
+
+* add functools.wraps() to time_it
+
 ## v2.3.0 (2023-10-29)
 
 #### Refactorings
