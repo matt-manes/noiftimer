@@ -37,7 +37,7 @@ class _Pauser:
         self._pause_start = 0
         self._pause_total = 0
         self._paused = False
-
+    
     def pause(self):
         self._pause_start = time.time()
         self._paused = True
@@ -125,6 +125,10 @@ class Timer:
 
         At most, it will be `averaging_window_length` elements long."""
         return self._history
+    
+    @property
+    def is_paused(self) -> bool:
+        return self._pauser._paused
 
     def start(self: Self) -> Self:
         """Start the timer.
@@ -150,6 +154,11 @@ class Timer:
             self._pauser.reset()
             self._save_elapsed_time()
             self._average_elapsed = sum(self._history) / (len(self._history))
+    
+    def reset(self):
+        """ Calls stop() then start() for convenience. """
+        self.stop()
+        self.start()
 
     def pause(self):
         """Pause the timer."""
