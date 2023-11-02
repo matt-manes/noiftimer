@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.4.0 (2023-11-02)
+
+#### New Features
+
+* stopwatch can be paused
+* add reset method
+
 ## v2.3.1 (2023-10-29)
 
 #### Fixes
