@@ -31,10 +31,22 @@
         <h2>API Documentation</h2>
             <ul class="memberlist">
             <li>
-                    <a class="function" href="#input_">input_</a>
-            </li>
-            <li>
-                    <a class="function" href="#stopwatch">stopwatch</a>
+                    <a class="class" href="#Stopwatch">Stopwatch</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Stopwatch.__init__">Stopwatch</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Stopwatch.process_input">process_input</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Stopwatch.intro">intro</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Stopwatch.run">run</a>
+                        </li>
+                </ul>
+
             </li>
             <li>
                     <a class="function" href="#main">main</a>
@@ -70,85 +82,210 @@
 </span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="n">QUIT</span> <span class="o">=</span> <span class="kc">False</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="k">def</span> <span class="nf">input_</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="k">global</span> <span class="n">QUIT</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="n">value</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>    <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;q&quot;</span><span class="p">:</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>        <span class="n">QUIT</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="k">class</span> <span class="nc">Stopwatch</span><span class="p">:</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">quit</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pause</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="n">subsecond_resolution</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="k">def</span> <span class="nf">stopwatch</span><span class="p">():</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="n">input_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">input_</span><span class="p">,</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">input_</span><span class="p">(</span><span class="s2">&quot;Press enter to start. &quot;</span><span class="p">)</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">QUIT</span><span class="p">:</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Press enter to stop.&quot;</span><span class="p">)</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="n">timer</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="n">subsecond_resolution</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="n">input_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="k">while</span> <span class="n">input_thread</span><span class="o">.</span><span class="n">is_alive</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">QUIT</span><span class="p">:</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>        <span class="n">print_in_place</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">timer</span><span class="o">.</span><span class="n">elapsed_str</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">)</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Press &#39;q&#39; and then enter to quit at any time.&quot;</span><span class="p">)</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="k">while</span> <span class="ow">not</span> <span class="n">QUIT</span><span class="p">:</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>        <span class="n">stopwatch</span><span class="p">()</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="n">main</span><span class="p">()</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="nd">@property</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="k">def</span> <span class="nf">current_time</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">elapsed_str</span><span class="si">}</span><span class="s2"> &quot;</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="k">def</span> <span class="nf">process_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>        <span class="n">value</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;q&quot;</span><span class="p">:</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">quit</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>        <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;r&quot;</span><span class="p">:</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">is_paused</span><span class="p">:</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">unpause</span><span class="p">()</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="k">def</span> <span class="nf">intro</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>            <span class="s2">&quot;Press enter to pause and unpause the timer.&quot;</span><span class="p">,</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>            <span class="s2">&quot;Enter &#39;r&#39; to restart the timer.&quot;</span><span class="p">,</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>            <span class="s2">&quot;Enter &#39;q&#39; to quit.&quot;</span><span class="p">,</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>        <span class="p">]</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>        <span class="nb">print</span><span class="p">(</span><span class="o">*</span><span class="n">lines</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>        <span class="n">input_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">process_input</span><span class="p">,</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>        <span class="n">input_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>        <span class="k">while</span> <span class="n">input_thread</span><span class="o">.</span><span class="n">is_alive</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">:</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">is_paused</span><span class="p">:</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>                <span class="n">print_in_place</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_time</span><span class="p">)</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>    <span class="n">stopwatch</span> <span class="o">=</span> <span class="n">Stopwatch</span><span class="p">()</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>    <span class="n">stopwatch</span><span class="o">.</span><span class="n">intro</span><span class="p">()</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>    <span class="k">while</span> <span class="ow">not</span> <span class="n">stopwatch</span><span class="o">.</span><span class="n">quit</span><span class="p">:</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>        <span class="n">stopwatch</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>
+</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>    <span class="n">main</span><span class="p">()</span>
 </span></pre></div>
 
 
             </section>
-                <section id="input_">
-                            <input id="input_-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr function">
+                <section id="Stopwatch">
+                            <input id="Stopwatch-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
             
-        <span class="def">def</span>
-        <span class="name">input_</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span><span class="return-annotation">):</span></span>
+    <span class="def">class</span>
+    <span class="name">Stopwatch</span>:
 
-                <label class="view-source-button" for="input_-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="Stopwatch-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#input_"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="input_-12"><a href="#input_-12"><span class="linenos">12</span></a><span class="k">def</span> <span class="nf">input_</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
-</span><span id="input_-13"><a href="#input_-13"><span class="linenos">13</span></a>    <span class="k">global</span> <span class="n">QUIT</span>
-</span><span id="input_-14"><a href="#input_-14"><span class="linenos">14</span></a>    <span class="n">value</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
-</span><span id="input_-15"><a href="#input_-15"><span class="linenos">15</span></a>    <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;q&quot;</span><span class="p">:</span>
-</span><span id="input_-16"><a href="#input_-16"><span class="linenos">16</span></a>        <span class="n">QUIT</span> <span class="o">=</span> <span class="kc">True</span>
+    <a class="headerlink" href="#Stopwatch"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Stopwatch-12"><a href="#Stopwatch-12"><span class="linenos">12</span></a><span class="k">class</span> <span class="nc">Stopwatch</span><span class="p">:</span>
+</span><span id="Stopwatch-13"><a href="#Stopwatch-13"><span class="linenos">13</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="Stopwatch-14"><a href="#Stopwatch-14"><span class="linenos">14</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">quit</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="Stopwatch-15"><a href="#Stopwatch-15"><span class="linenos">15</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pause</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="Stopwatch-16"><a href="#Stopwatch-16"><span class="linenos">16</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="n">subsecond_resolution</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="Stopwatch-17"><a href="#Stopwatch-17"><span class="linenos">17</span></a>
+</span><span id="Stopwatch-18"><a href="#Stopwatch-18"><span class="linenos">18</span></a>    <span class="nd">@property</span>
+</span><span id="Stopwatch-19"><a href="#Stopwatch-19"><span class="linenos">19</span></a>    <span class="k">def</span> <span class="nf">current_time</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Stopwatch-20"><a href="#Stopwatch-20"><span class="linenos">20</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">elapsed_str</span><span class="si">}</span><span class="s2"> &quot;</span>
+</span><span id="Stopwatch-21"><a href="#Stopwatch-21"><span class="linenos">21</span></a>
+</span><span id="Stopwatch-22"><a href="#Stopwatch-22"><span class="linenos">22</span></a>    <span class="k">def</span> <span class="nf">process_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="Stopwatch-23"><a href="#Stopwatch-23"><span class="linenos">23</span></a>        <span class="n">value</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+</span><span id="Stopwatch-24"><a href="#Stopwatch-24"><span class="linenos">24</span></a>        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;q&quot;</span><span class="p">:</span>
+</span><span id="Stopwatch-25"><a href="#Stopwatch-25"><span class="linenos">25</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">quit</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="Stopwatch-26"><a href="#Stopwatch-26"><span class="linenos">26</span></a>        <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;r&quot;</span><span class="p">:</span>
+</span><span id="Stopwatch-27"><a href="#Stopwatch-27"><span class="linenos">27</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</span><span id="Stopwatch-28"><a href="#Stopwatch-28"><span class="linenos">28</span></a>        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">is_paused</span><span class="p">:</span>
+</span><span id="Stopwatch-29"><a href="#Stopwatch-29"><span class="linenos">29</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">unpause</span><span class="p">()</span>
+</span><span id="Stopwatch-30"><a href="#Stopwatch-30"><span class="linenos">30</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="Stopwatch-31"><a href="#Stopwatch-31"><span class="linenos">31</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+</span><span id="Stopwatch-32"><a href="#Stopwatch-32"><span class="linenos">32</span></a>
+</span><span id="Stopwatch-33"><a href="#Stopwatch-33"><span class="linenos">33</span></a>    <span class="k">def</span> <span class="nf">intro</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="Stopwatch-34"><a href="#Stopwatch-34"><span class="linenos">34</span></a>        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="Stopwatch-35"><a href="#Stopwatch-35"><span class="linenos">35</span></a>            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span id="Stopwatch-36"><a href="#Stopwatch-36"><span class="linenos">36</span></a>            <span class="s2">&quot;Press enter to pause and unpause the timer.&quot;</span><span class="p">,</span>
+</span><span id="Stopwatch-37"><a href="#Stopwatch-37"><span class="linenos">37</span></a>            <span class="s2">&quot;Enter &#39;r&#39; to restart the timer.&quot;</span><span class="p">,</span>
+</span><span id="Stopwatch-38"><a href="#Stopwatch-38"><span class="linenos">38</span></a>            <span class="s2">&quot;Enter &#39;q&#39; to quit.&quot;</span><span class="p">,</span>
+</span><span id="Stopwatch-39"><a href="#Stopwatch-39"><span class="linenos">39</span></a>        <span class="p">]</span>
+</span><span id="Stopwatch-40"><a href="#Stopwatch-40"><span class="linenos">40</span></a>        <span class="nb">print</span><span class="p">(</span><span class="o">*</span><span class="n">lines</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="Stopwatch-41"><a href="#Stopwatch-41"><span class="linenos">41</span></a>
+</span><span id="Stopwatch-42"><a href="#Stopwatch-42"><span class="linenos">42</span></a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="Stopwatch-43"><a href="#Stopwatch-43"><span class="linenos">43</span></a>        <span class="n">input_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">process_input</span><span class="p">,</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="Stopwatch-44"><a href="#Stopwatch-44"><span class="linenos">44</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span><span id="Stopwatch-45"><a href="#Stopwatch-45"><span class="linenos">45</span></a>        <span class="n">input_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span><span id="Stopwatch-46"><a href="#Stopwatch-46"><span class="linenos">46</span></a>        <span class="k">while</span> <span class="n">input_thread</span><span class="o">.</span><span class="n">is_alive</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">:</span>
+</span><span id="Stopwatch-47"><a href="#Stopwatch-47"><span class="linenos">47</span></a>            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">is_paused</span><span class="p">:</span>
+</span><span id="Stopwatch-48"><a href="#Stopwatch-48"><span class="linenos">48</span></a>                <span class="n">print_in_place</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_time</span><span class="p">)</span>
+</span><span id="Stopwatch-49"><a href="#Stopwatch-49"><span class="linenos">49</span></a>            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </span></pre></div>
 
 
     
 
-                </section>
-                <section id="stopwatch">
-                            <input id="stopwatch-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                            <div id="Stopwatch.__init__" class="classattr">
+                                        <input id="Stopwatch.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
-        <span class="def">def</span>
-        <span class="name">stopwatch</span><span class="signature pdoc-code condensed">(<span class="return-annotation">):</span></span>
+        <span class="name">Stopwatch</span><span class="signature pdoc-code condensed">()</span>
 
-                <label class="view-source-button" for="stopwatch-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="Stopwatch.__init__-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#stopwatch"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="stopwatch-19"><a href="#stopwatch-19"><span class="linenos">19</span></a><span class="k">def</span> <span class="nf">stopwatch</span><span class="p">():</span>
-</span><span id="stopwatch-20"><a href="#stopwatch-20"><span class="linenos">20</span></a>    <span class="n">input_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">input_</span><span class="p">,</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="stopwatch-21"><a href="#stopwatch-21"><span class="linenos">21</span></a>    <span class="n">input_</span><span class="p">(</span><span class="s2">&quot;Press enter to start. &quot;</span><span class="p">)</span>
-</span><span id="stopwatch-22"><a href="#stopwatch-22"><span class="linenos">22</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">QUIT</span><span class="p">:</span>
-</span><span id="stopwatch-23"><a href="#stopwatch-23"><span class="linenos">23</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Press enter to stop.&quot;</span><span class="p">)</span>
-</span><span id="stopwatch-24"><a href="#stopwatch-24"><span class="linenos">24</span></a>    <span class="n">timer</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="n">subsecond_resolution</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</span><span id="stopwatch-25"><a href="#stopwatch-25"><span class="linenos">25</span></a>    <span class="n">input_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</span><span id="stopwatch-26"><a href="#stopwatch-26"><span class="linenos">26</span></a>    <span class="k">while</span> <span class="n">input_thread</span><span class="o">.</span><span class="n">is_alive</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">QUIT</span><span class="p">:</span>
-</span><span id="stopwatch-27"><a href="#stopwatch-27"><span class="linenos">27</span></a>        <span class="n">print_in_place</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">timer</span><span class="o">.</span><span class="n">elapsed_str</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">)</span>
-</span><span id="stopwatch-28"><a href="#stopwatch-28"><span class="linenos">28</span></a>        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <a class="headerlink" href="#Stopwatch.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Stopwatch.__init__-13"><a href="#Stopwatch.__init__-13"><span class="linenos">13</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="Stopwatch.__init__-14"><a href="#Stopwatch.__init__-14"><span class="linenos">14</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">quit</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="Stopwatch.__init__-15"><a href="#Stopwatch.__init__-15"><span class="linenos">15</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pause</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="Stopwatch.__init__-16"><a href="#Stopwatch.__init__-16"><span class="linenos">16</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="n">subsecond_resolution</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </span></pre></div>
 
 
     
 
+                            </div>
+                            <div id="Stopwatch.process_input" class="classattr">
+                                        <input id="Stopwatch.process_input-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">process_input</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="Stopwatch.process_input-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Stopwatch.process_input"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Stopwatch.process_input-22"><a href="#Stopwatch.process_input-22"><span class="linenos">22</span></a>    <span class="k">def</span> <span class="nf">process_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="Stopwatch.process_input-23"><a href="#Stopwatch.process_input-23"><span class="linenos">23</span></a>        <span class="n">value</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+</span><span id="Stopwatch.process_input-24"><a href="#Stopwatch.process_input-24"><span class="linenos">24</span></a>        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;q&quot;</span><span class="p">:</span>
+</span><span id="Stopwatch.process_input-25"><a href="#Stopwatch.process_input-25"><span class="linenos">25</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">quit</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="Stopwatch.process_input-26"><a href="#Stopwatch.process_input-26"><span class="linenos">26</span></a>        <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;r&quot;</span><span class="p">:</span>
+</span><span id="Stopwatch.process_input-27"><a href="#Stopwatch.process_input-27"><span class="linenos">27</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</span><span id="Stopwatch.process_input-28"><a href="#Stopwatch.process_input-28"><span class="linenos">28</span></a>        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">is_paused</span><span class="p">:</span>
+</span><span id="Stopwatch.process_input-29"><a href="#Stopwatch.process_input-29"><span class="linenos">29</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">unpause</span><span class="p">()</span>
+</span><span id="Stopwatch.process_input-30"><a href="#Stopwatch.process_input-30"><span class="linenos">30</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="Stopwatch.process_input-31"><a href="#Stopwatch.process_input-31"><span class="linenos">31</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                            <div id="Stopwatch.intro" class="classattr">
+                                        <input id="Stopwatch.intro-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">intro</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="Stopwatch.intro-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Stopwatch.intro"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Stopwatch.intro-33"><a href="#Stopwatch.intro-33"><span class="linenos">33</span></a>    <span class="k">def</span> <span class="nf">intro</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="Stopwatch.intro-34"><a href="#Stopwatch.intro-34"><span class="linenos">34</span></a>        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="Stopwatch.intro-35"><a href="#Stopwatch.intro-35"><span class="linenos">35</span></a>            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span id="Stopwatch.intro-36"><a href="#Stopwatch.intro-36"><span class="linenos">36</span></a>            <span class="s2">&quot;Press enter to pause and unpause the timer.&quot;</span><span class="p">,</span>
+</span><span id="Stopwatch.intro-37"><a href="#Stopwatch.intro-37"><span class="linenos">37</span></a>            <span class="s2">&quot;Enter &#39;r&#39; to restart the timer.&quot;</span><span class="p">,</span>
+</span><span id="Stopwatch.intro-38"><a href="#Stopwatch.intro-38"><span class="linenos">38</span></a>            <span class="s2">&quot;Enter &#39;q&#39; to quit.&quot;</span><span class="p">,</span>
+</span><span id="Stopwatch.intro-39"><a href="#Stopwatch.intro-39"><span class="linenos">39</span></a>        <span class="p">]</span>
+</span><span id="Stopwatch.intro-40"><a href="#Stopwatch.intro-40"><span class="linenos">40</span></a>        <span class="nb">print</span><span class="p">(</span><span class="o">*</span><span class="n">lines</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                            <div id="Stopwatch.run" class="classattr">
+                                        <input id="Stopwatch.run-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">run</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="Stopwatch.run-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Stopwatch.run"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Stopwatch.run-42"><a href="#Stopwatch.run-42"><span class="linenos">42</span></a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="Stopwatch.run-43"><a href="#Stopwatch.run-43"><span class="linenos">43</span></a>        <span class="n">input_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">process_input</span><span class="p">,</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="Stopwatch.run-44"><a href="#Stopwatch.run-44"><span class="linenos">44</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span><span id="Stopwatch.run-45"><a href="#Stopwatch.run-45"><span class="linenos">45</span></a>        <span class="n">input_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span><span id="Stopwatch.run-46"><a href="#Stopwatch.run-46"><span class="linenos">46</span></a>        <span class="k">while</span> <span class="n">input_thread</span><span class="o">.</span><span class="n">is_alive</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">:</span>
+</span><span id="Stopwatch.run-47"><a href="#Stopwatch.run-47"><span class="linenos">47</span></a>            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">is_paused</span><span class="p">:</span>
+</span><span id="Stopwatch.run-48"><a href="#Stopwatch.run-48"><span class="linenos">48</span></a>                <span class="n">print_in_place</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_time</span><span class="p">)</span>
+</span><span id="Stopwatch.run-49"><a href="#Stopwatch.run-49"><span class="linenos">49</span></a>            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
                 </section>
                 <section id="main">
                             <input id="main-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
@@ -161,10 +298,11 @@
 
     </div>
     <a class="headerlink" href="#main"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="main-31"><a href="#main-31"><span class="linenos">31</span></a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-</span><span id="main-32"><a href="#main-32"><span class="linenos">32</span></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Press &#39;q&#39; and then enter to quit at any time.&quot;</span><span class="p">)</span>
-</span><span id="main-33"><a href="#main-33"><span class="linenos">33</span></a>    <span class="k">while</span> <span class="ow">not</span> <span class="n">QUIT</span><span class="p">:</span>
-</span><span id="main-34"><a href="#main-34"><span class="linenos">34</span></a>        <span class="n">stopwatch</span><span class="p">()</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="main-52"><a href="#main-52"><span class="linenos">52</span></a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span><span id="main-53"><a href="#main-53"><span class="linenos">53</span></a>    <span class="n">stopwatch</span> <span class="o">=</span> <span class="n">Stopwatch</span><span class="p">()</span>
+</span><span id="main-54"><a href="#main-54"><span class="linenos">54</span></a>    <span class="n">stopwatch</span><span class="o">.</span><span class="n">intro</span><span class="p">()</span>
+</span><span id="main-55"><a href="#main-55"><span class="linenos">55</span></a>    <span class="k">while</span> <span class="ow">not</span> <span class="n">stopwatch</span><span class="o">.</span><span class="n">quit</span><span class="p">:</span>
+</span><span id="main-56"><a href="#main-56"><span class="linenos">56</span></a>        <span class="n">stopwatch</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </span></pre></div>
 
 
