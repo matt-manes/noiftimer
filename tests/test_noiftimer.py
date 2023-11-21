@@ -28,7 +28,7 @@ def test_noiftimer__save_elapsed_time():
     timer.start()
     timer.stop()
     assert len(timer.history) == 1
-    for _ in range(averaging_window_length):
+    for _ in range(averaging_window_length * 2):
         timer.start()
         timer.stop()
     assert len(timer.history) == averaging_window_length

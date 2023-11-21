@@ -1,4 +1,5 @@
 import time
+from collections import deque
 from functools import wraps
 from typing import Any, Callable
 
@@ -70,14 +71,14 @@ class Timer:
         #### :params:
         * `averaging_window_length`: Number of start/stop cycles to calculate the average elapsed time with.
 
-        * `subsecond_resolution`: Whether to print formatted time strings with subsecond resolution or not."""
+        * `subsecond_resolution`: Whether to print formatted time strings with subsecond resolution or not.
+        """
         self._start_time = time.time()
         self._stop_time = self.start_time
         self._elapsed = 0
         self._average_elapsed = 0
-        self._history: list[float] = []
+        self._history: deque[float] = deque([], averaging_window_length)
         self._started: bool = False
-        self.averaging_window_length: int = averaging_window_length
         self.subsecond_resolution = subsecond_resolution
         self._pauser = _Pauser()
 
@@ -120,10 +121,8 @@ class Timer:
         return self._stop_time
 
     @property
-    def history(self) -> list[float]:
-        """Returns the history buffer for this timer.
-
-        At most, it will be `averaging_window_length` elements long."""
+    def history(self) -> deque[float]:
+        """Returns the history buffer for this timer."""
         return self._history
 
     @property
@@ -152,7 +151,7 @@ class Timer:
                 self._stop_time - self._start_time - self._pauser.pause_total
             )
             self._pauser.reset()
-            self._save_elapsed_time()
+            self._history.append(self._elapsed)
             self._average_elapsed = sum(self._history) / (len(self._history))
 
     def reset(self):
@@ -168,19 +167,14 @@ class Timer:
         """Unpause the timer."""
         self._pauser.unpause()
 
-    def _save_elapsed_time(self):
-        """Saves current elapsed time to the history buffer in a FIFO manner."""
-        if len(self._history) >= self.averaging_window_length:
-            self._history.pop(0)
-        self._history.append(self._elapsed)
-
     @staticmethod
     def format_time(num_seconds: float, subsecond_resolution: bool = False) -> str:
         """Returns `num_seconds` as a string with units.
 
         #### :params:
 
-        `subsecond_resolution`: Include milliseconds and microseconds with the output."""
+        `subsecond_resolution`: Include milliseconds and microseconds with the output.
+        """
         microsecond = 0.000001
         millisecond = 0.001
         second = 1
