@@ -1,5 +1,15 @@
 # Changelog
 
+## v2.4.1 (2023-11-21)
+
+#### Refactorings
+
+* implement timer history with a deque instead of a list
+#### Others
+
+* remove pytest from pyproject dependencies
+
+
 ## v2.4.0 (2023-11-02)
 
 #### New Features
