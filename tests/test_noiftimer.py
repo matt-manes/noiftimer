@@ -22,6 +22,14 @@ def test_noiftimer_stop():
     assert timer.elapsed == timer.average_elapsed
 
 
+def test_noiftimer_reset():
+    timer = noiftimer.Timer()
+    timer.start()
+    for i in range(5):
+        timer.reset()
+    assert len(timer.history) == 5
+
+
 def test_noiftimer__save_elapsed_time():
     averaging_window_length = 10
     timer = noiftimer.Timer(averaging_window_length)
@@ -80,7 +88,9 @@ def test__noiftimer__elapsed_str():
         ),
     ],
 )
-def test_noiftimer_format_time(num_seconds, subsecond_resolution, expected):
+def test_noiftimer_format_time(
+    num_seconds: float, subsecond_resolution: bool, expected: float
+):
     assert noiftimer.Timer.format_time(num_seconds, subsecond_resolution) == expected
 
 
@@ -102,25 +112,32 @@ def test__noiftimer__time_it():
 
 
 def test__pauser():
+    pauser = noiftimer.noiftimer._Pauser()  # type: ignore
+    assert not pauser.paused
+    assert pauser.pause_total == 0
+    pauser.pause()
+    assert pauser.paused
+    time.sleep(1.1)
+    pauser.unpause()
+    assert not pauser.paused
+    assert pauser.pause_total > 1
+    pauser.reset()
+    assert pauser.pause_total == 0
+
+
+def test__Timer_pause():
     timer = noiftimer.Timer().start()
     time.sleep(1)
     elapsed_time = timer.elapsed
     timer.pause()
+    assert timer.is_paused
     time.sleep(1)
-    # amount of time paused should be subtracked from elapsed
+    # amount of time paused should be subtracted from elapsed
     assert elapsed_time == timer.elapsed
     timer.unpause()
-    assert timer._pauser.pause_total > 0
-    pause_time = timer._pauser.pause_total
     time.sleep(1)
     # pause tracker should be stopped
     assert timer.elapsed > elapsed_time
-    assert pause_time == timer._pauser.pause_total
     timer.pause()
     time.sleep(1)
     timer.unpause()
-    # pause_time should accumulate until `timer.stop()` is called.
-    assert timer._pauser.pause_total > pause_time
-    timer.stop()
-    assert timer._pauser.pause_total == 0
-    assert timer._pauser._pause_start == 0

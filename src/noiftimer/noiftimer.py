@@ -16,7 +16,7 @@ def time_it(loops: int = 1) -> Callable[..., Any]:
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
-        def wrapper(*args, **kwargs) -> Any:
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             timer = Timer(loops)
             result = None
             for _ in range(loops):
@@ -38,6 +38,11 @@ class _Pauser:
         self._pause_start = 0
         self._pause_total = 0
         self._paused = False
+
+    @property
+    def paused(self) -> bool:
+        """Whether this instance is paused or not."""
+        return self._paused
 
     def pause(self):
         self._pause_start = time.time()
@@ -127,7 +132,7 @@ class Timer:
 
     @property
     def is_paused(self) -> bool:
-        return self._pauser._paused
+        return self._pauser.paused
 
     def start(self: Self) -> Self:
         """Start the timer.
