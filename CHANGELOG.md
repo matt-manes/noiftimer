@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.4.3 (2024-02-16)
+
+#### Others
+
+* add to sdist excludes
+
+
 ## v2.4.2 (2024-02-16)
 
 #### Refactorings
