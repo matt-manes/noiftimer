@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.4.2 (2024-02-16)
+
+#### Refactorings
+
+* improve type annotation and test coverages
+
+
 ## v2.4.1 (2023-11-21)
 
 #### Refactorings
