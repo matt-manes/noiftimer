@@ -189,7 +189,7 @@ class Timer:
         seconds_per_week = 604800
         seconds_per_month = 2419200
         seconds_per_year = 29030400
-        time_units = [
+        time_units: list[tuple[float, str]] = [
             (seconds_per_year, "y"),
             (seconds_per_month, "mn"),
             (seconds_per_week, "w"),
