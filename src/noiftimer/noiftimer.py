@@ -1,3 +1,4 @@
+import os
 import time
 from collections import deque
 from functools import wraps
@@ -26,6 +27,36 @@ def time_it(loops: int = 1) -> Callable[..., Any]:
             print(
                 f"{func.__name__} {'average ' if loops > 1 else ''}execution time: {timer.average_elapsed_str}"
             )
+            return result
+
+        return wrapper
+
+    return decorator
+
+
+def log_time(log_name: str = "timer") -> Callable[..., Any]:
+    """Decorator that logs the execution time of the decorated function.
+
+    Args:
+        log_name (str, optional): The file stem name to use for the log file.
+        The path will be 'logs/{log_name}.log'. Defaults to "timer".
+
+    Returns:
+        Callable[..., Any]: The result of the decorated function.
+    """
+    # causes a circular import error if not done here
+    from loggi import Logger, getLogger
+
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+        @wraps(func)
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
+            logger: Logger = getLogger(log_name, f"{os.getcwd()}{os.sep}logs")
+            logger.info(f"{func.__name__} starting execution")
+            timer: Timer = Timer(1).start()
+            result: Any = func(*args, **kwargs)
+            timer.stop()
+            logger.info(f"{func.__name__} execution time: {timer.elapsed_str}")
+            logger.close()
             return result
 
         return wrapper
