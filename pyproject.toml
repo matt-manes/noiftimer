@@ -1,8 +1,8 @@
 [project]
 name = "noiftimer"
 description = "Timing class for measuring elapsed time and average elapsed time."
-version = "2.4.3"
-dependencies = ["typing_extensions", "printbuddies", "pytest"]
+version = "2.5.0"
+dependencies = ["typing_extensions", "printbuddies", "pytest", "loggi"]
 readme = "README.md"
 keywords = ["timer", "timing"]
 classifiers = ["Programming Language :: Python :: 3", "License :: OSI Approved :: MIT License", "Operating System :: OS Independent"]
