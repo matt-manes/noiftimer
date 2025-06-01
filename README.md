@@ -1,15 +1,22 @@
 # noiftimer
-Simple timer class to track elapsed time.<br>
+
+Simple timer class to track elapsed time.  
 Install with:
-<pre>pip install noiftimer</pre>
+
+```console
+pip install noiftimer
+```
 
 Usage:
-<pre>
->>> from noiftimer import Timer, time_it
->>> import time
-</pre>
-Timer object
-<pre>
+
+```python
+from noiftimer import Timer, time_it, log_time
+import time
+```
+
+`Timer` object:
+
+```python
 >>> def very_complicated_function():
 ...     time.sleep(1)
 ...
@@ -30,13 +37,17 @@ average elapsed time: 1s 912us
 1.0009121656417848
 >>> timer.average_elapsed_str
 '1s 912us'
-</pre>
-time_it decorator (executes the decorated function 10 times)
-<pre>
+```
+
+`time_it` decorator (executes the decorated function 10 times)
+
+```python
 >>> @time_it(10)
 ... def very_complicated_function():
 ...     time.sleep(1)
 ...
 >>> very_complicated_function()
 very_complicated_function average execution time: 1s 469us
-</pre>
+```
+
+Alternatively, the `log_time` decorator can be used to instead log the execution time to a file.
